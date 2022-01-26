@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.0/css/ionicons.min.css"
+      integrity="sha512-JApjWRnfonFeGBY7t4yq8SWr1A6xVYEJgO/UMIYONxaR3C9GETKUg0LharbJncEzJF5Nmiv+Pr5QNulr81LjGQ=="
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dongle&display=swap"
+      rel="stylesheet"
+    />
+    <title>The movie DB</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo-div">
+        <img class="logo" src="./images/logo2.svg" alt="logo" />
+      </div>
+      <ul class="header-tags">
+        <li class="header-tag">HOME</li>
+        <li class="header-tag">LIKED LIST</li>
+      </ul>
+    </header>
+    <main>
+      <section class="category-section">
+        <select id="categories">
+          <option value="popular" selected>Popular</option>
+          <option value="now_playing">Now playing</option>
+          <option value="top_rated">Top rated</option>
+          <option value="upcoming">Up coming</option>
+        </select>
+      </section>
+      <section class="home"></section>
+      <section class="liked-list">liked list page</section>
+      <script src="./scripts.js"></script>
+    </main>
+  </body>
+</html>
