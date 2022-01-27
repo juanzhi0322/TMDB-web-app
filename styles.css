@@ -98,3 +98,31 @@ header {
 .movie-name:hover {
   color: #01b4e4;
 }
+
+/* pagination style */
+.pagination {
+  color: #01b4e4;
+  font-size: 1.3em;
+  background-color: #0d253f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.page-icon {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 40px;
+  padding: 0 5px;
+  border-radius: 3px;
+}
+.page-icon:hover {
+  color: #f5f5f5;
+  background-color: #0a1a2b;
+}
+
+/* footer style */
+footer {
+  height: 50px;
+  background-color: #0a1a2b;
+}
