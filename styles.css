@@ -2,6 +2,7 @@
   margin: 0;
   font-family: "Dongle", sans-serif;
 }
+
 header {
   background-color: #0d253f;
   display: flex;
@@ -44,9 +45,13 @@ header {
 .home {
   background-color: #0d253f;
   display: block;
+  position: relative;
 }
 .liked-list {
+  background-color: #0d253f;
+  min-height: 600px;
   display: none;
+  position: relative;
 }
 
 /* movie cards style */
@@ -81,6 +86,7 @@ header {
 .like-icon {
   color: #f5f5f5;
   padding: 3px 10px;
+  cursor: pointer;
 }
 .like-icon:hover {
   color: #01b4e4;
@@ -125,4 +131,69 @@ header {
 footer {
   height: 50px;
   background-color: #0a1a2b;
+}
+
+.movie-details {
+  width: 50%;
+  display: flex;
+  border-radius: 2px;
+  border: 1px solid #0a1a2b;
+  position: fixed;
+  background-color: #f5f5f5;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+}
+.movie-left {
+  width: 40%;
+  object-fit: cover;
+}
+.movie-left img {
+  width: 100%;
+  padding: 0;
+}
+.movie-right {
+  width: 60%;
+  padding: 20px;
+  position: relative;
+}
+.movie-right h1 {
+  line-height: 0.8em;
+}
+.close {
+  position: absolute;
+  padding: 0 5px;
+  top: 2px;
+  right: 2px;
+  font-size: 2em;
+  cursor: pointer;
+}
+.close:hover {
+  color: #90cea1;
+}
+.overview {
+  line-height: 1em;
+  font-size: 1.2em;
+}
+.movie-flex {
+  display: flex;
+}
+.genres-text {
+  background-color: #90cea1;
+  color: #f5f5f5;
+  font-weight: 400;
+  border-radius: 3px;
+  margin: 0 3px;
+  padding: 2px 3px;
+  line-height: 0.8em;
+}
+.popup-rating {
+  font-size: 1.2em;
+}
+.movie-flex img {
+  width: 20px;
+  height: 20px;
+  padding: 0 5px;
 }

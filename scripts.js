@@ -6,6 +6,7 @@ const State = {
   totalPage: 1,
   apiResponse: [],
   liked: [],
+  details: null,
 };
 
 BASE_URL = "https://api.themoviedb.org/3/movie/";
@@ -14,6 +15,7 @@ IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 const homeArea = document.querySelector(".home");
 const likedListArea = document.querySelector(".liked-list");
 const dropdownArea = document.querySelector(".category-section");
+const popUpArea = document.querySelector(".movie-details");
 
 // view
 function getDataAndRefresh() {
@@ -38,6 +40,7 @@ function getDataAndRefresh() {
     .then(() => {
       displayMovieCards(homeArea);
       displayPagination();
+      switchView();
     });
 }
 function oneMovieCard(each, isLiked) {
@@ -96,13 +99,70 @@ function switchView() {
   likedListArea.style.display = "none";
   homeArea.style.display = "none";
   dropdownArea.style.display = "none";
+  const homeTag = document.querySelector(".home-tag");
+  const likedTag = document.querySelector(".liked-tag");
+  const paginationTag = document.querySelector(".pagination");
   if (State.nav === "HOME") {
     homeArea.style.display = "block";
     dropdownArea.style.display = "block";
+    homeTag.style.borderBottom = "4px solid #01b4e4";
+    likedTag.style.borderBottom = "";
+    paginationTag.style.display = "flex";
   } else if (State.nav === "LIKED LIST") {
     likedListArea.style.display = "block";
+    likedTag.style.borderBottom = "4px solid #01b4e4";
+    homeTag.style.borderBottom = "";
+    paginationTag.style.display = "none";
     displayMovieCards(likedListArea);
   }
+}
+
+function renderPopUpWindow() {
+  popUpArea.style.visibility = "visible";
+  const hiddenMain = document.querySelector("main");
+  const hiddenHeader = document.querySelector("header");
+  hiddenMain.style.filter = "brightness(50%)";
+  hiddenMain.style.filter = "brightness(50%)";
+  const genresHtml = State.details.genres.map((each) => {
+    return `<p class="genres-text">${each.name}</p>`;
+  });
+  const productCompanies = State.details.production_companies.map((each) => {
+    return `<img src="${IMAGE_BASE}${each.logo_path}" alt="${each.name}" />`;
+  });
+  popUpArea.innerHTML = `        
+  <img
+    class="movie-left"
+    src="${IMAGE_BASE}${State.details.poster_path}"
+    alt=""
+  />
+  <div class="movie-right">
+    <h1 class="close">&times;</h1>
+    <h1>${State.details.title}</h1>
+    <h3>Overview</h3>
+    <p class="overview">${State.details.overview}</p>
+    <h3>Genres</h3>
+    <div class="movie-flex genres">
+    ${genresHtml.join("")}
+    </div>
+    <h3>Rating</h3>
+    <h5 class="popup-rating">${State.details.vote_average}</h5>
+    <h3>Production companies</h3>
+    <div class="movie-flex">
+    ${productCompanies.join("")}
+    </div>
+  </div>
+  `;
+  const closeBar = document.querySelector(".close");
+  function closePopUp() {
+    State.details = null;
+    popUpArea.style.visibility = "hidden";
+    hiddenMain.style.filter = "brightness(100%)";
+    hiddenMain.style.filter = "brightness(100%)";
+    console.log("details", State.details);
+  }
+  closeBar.addEventListener("click", closePopUp);
+
+  console.log("pop up run");
 }
 
 // Controller
@@ -133,7 +193,7 @@ function changeNav(e) {
 }
 headerNav.addEventListener("click", changeNav);
 
-// favorite controller
+// favorite and popup window controller
 function handleCardClick(e) {
   const parentId = e.target.closest(".card").id;
   if (e.target.tagName === "I") {
@@ -155,11 +215,20 @@ function handleCardClick(e) {
     displayMovieCards(homeArea);
     displayMovieCards(likedListArea);
   } else if (e.target.className === "movie-name") {
-    console.log("title clicked", parentId);
+    detailsAPI = `https://api.themoviedb.org/3/movie/${parentId}?api_key=1ffee81271c6424b117014332c4bb778&language=en-US`;
+    fetch(detailsAPI)
+      .then((res) => res.json())
+      .then((data) => {
+        State.details = data;
+        console.log(State.details.title);
+        console.log(State.details.overview);
+        console.log(State.details.genres);
+        console.log(State.details.vote_average);
+        console.log(State.details.production_companies);
+      })
+      .then(renderPopUpWindow);
   }
 }
-
-//pop up window controller
 // pagination controller
 const prevBar = document.querySelector(".prev");
 function goPrev() {
